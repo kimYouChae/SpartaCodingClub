@@ -10,7 +10,7 @@ namespace TextRPG
     {
         public InventoryManger() 
         {
-        
+            
         }
 
         public void SceneEntry()
