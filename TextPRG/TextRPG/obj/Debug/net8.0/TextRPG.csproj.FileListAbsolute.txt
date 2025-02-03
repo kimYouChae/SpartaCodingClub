@@ -1,0 +1,15 @@
+D:\SpartaCodingClub\TextPRG\TextRPG\bin\Debug\net8.0\TextRPG.exe
+D:\SpartaCodingClub\TextPRG\TextRPG\bin\Debug\net8.0\TextRPG.deps.json
+D:\SpartaCodingClub\TextPRG\TextRPG\bin\Debug\net8.0\TextRPG.runtimeconfig.json
+D:\SpartaCodingClub\TextPRG\TextRPG\bin\Debug\net8.0\TextRPG.dll
+D:\SpartaCodingClub\TextPRG\TextRPG\bin\Debug\net8.0\TextRPG.pdb
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.GeneratedMSBuildEditorConfig.editorconfig
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.AssemblyInfoInputs.cache
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.AssemblyInfo.cs
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.csproj.CoreCompileInputs.cache
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.sourcelink.json
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.dll
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\refint\TextRPG.dll
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.pdb
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.genruntimeconfig.cache
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\ref\TextRPG.dll
