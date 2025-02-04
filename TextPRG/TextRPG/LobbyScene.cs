@@ -17,7 +17,6 @@ namespace TextRPG
 
         public void SceneEntry()
         {
-            Console.Clear();
             stringBuilder.Clear();
 
             stringBuilder.Append('\n');
@@ -45,11 +44,6 @@ namespace TextRPG
 
             // input에 맞게 변경 
             ChangeScene(input);
-        }
-
-        public void SceneExit()
-        {
-            Console.WriteLine($"루테란성을 벗어납니다. 즐거운 여행되세요 {PlayerManager.Instance.UserSelectPlayer.PlayerName} 모험가님");        
         }
 
         private void ChangeScene(int input) 

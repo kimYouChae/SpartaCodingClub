@@ -14,8 +14,6 @@ namespace TextRPG
         // 씬에서 메인으로 동작할 로직
         public void SceneMainFlow();
 
-        // 씬 끝날 때
-        public void SceneExit();
 
     }
 }

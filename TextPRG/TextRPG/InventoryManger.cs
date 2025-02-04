@@ -63,11 +63,6 @@ namespace TextRPG
             }
         }
 
-        public void SceneExit()
-        {
-
-        }
-
         private void EquitOnOFf() 
         {
             // Console.WriteLine("**미장착 아이템 **");

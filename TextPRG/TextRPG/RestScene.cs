@@ -23,12 +23,6 @@ namespace TextRPG
             Console.WriteLine("휴식하기");   
         }
 
-        public void SceneExit()
-        {
-
-
-        }
-
         public void SceneMainFlow()
         {
             Console.WriteLine($"{restCost} G 를 내면 체력을 회복할 수 있습니다. ");
@@ -68,10 +62,12 @@ namespace TextRPG
             }
 
             // 체력 회복
-            PlayerManager.Instance.UpdateHP(restAmout);
+            PlayerManager.Instance.UpdatePlayerState( HP : restAmout);
 
             // 돈 사용
-            PlayerManager.Instance.UseGold(restCost);
+            PlayerManager.Instance.UpdatePlayerState(GOLD : (-1) * restCost);
+
+            Console.WriteLine('\n');
         }
     }
 }

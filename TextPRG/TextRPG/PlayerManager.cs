@@ -25,9 +25,6 @@ namespace TextRPG
         {
             // 클래스 초기화 
             ClassInit();
-
-            // 추가스탯 초기화
-            AddStateInit();
         }
 
         private void ClassInit() 
@@ -37,23 +34,15 @@ namespace TextRPG
 
             playerContainer = new Player[playerClassArray.Length];
 
+            // 레벨, 클래스, 이름, 어택 , 디펜스, hp, 골드 , 툴팁
             playerContainer[(int)PlayerClass.Gunsliger] 
-                = new Player(0, PlayerClass.Gunsliger, "", 10, 5, 70, 10000 , "건슬링어는 3가지 총을 사용하여 빠르게 움직이며 스타일리쉬한 전투를 펼칩니다.");
+                = new Player(0, PlayerClass.Gunsliger, "", 10, 20, 70, 10000 , "건슬링어는 3가지 총을 사용하여 빠르게 움직이며 스타일리쉬한 전투를 펼칩니다.");
             playerContainer[(int)PlayerClass.Sorceress] 
                 = new Player(0, PlayerClass.Sorceress, "", 10, 5, 100, 100000, "원소를 기본으로 한 강력한 마법을 다루며 캐스팅 마법으로 강력한 피해를 선사합니다.");
             playerContainer[(int)PlayerClass.Blade] 
                 = new Player(0, PlayerClass.Blade, "", 10, 5, 100, 100000, "쌍검과 장검을 사용하는 암살자이며 빠르고 절도있게 적들을 공격합니다.");
             playerContainer[(int)PlayerClass.Aeromancer] 
                 = new Player(0, PlayerClass.Aeromancer, "", 10, 5, 100, 100000, "신비로운 환영의 힘으로 기상을 다루고 우산으로 적을 제압합니다.");
-        }
-
-        private void AddStateInit() 
-        {
-            int temp = Enum.GetNames(typeof(AddState)).Length;
-            addState = new int[temp];
-
-            addState[(int)AddState.Attack] = 0;
-            addState[(int)AddState.Defence] = 0;
         }
 
         public void printPlayer() 
@@ -125,16 +114,16 @@ namespace TextRPG
         }
 
         // 골드 사용 
-        public void UseGold(int gold) 
+        private void UpdateGold(int gold) 
         {
-            _userSelectPlayer.Gold -= gold;
+            _userSelectPlayer.Gold += gold;
 
             // 0이하면 0으로 초기화
             if (_userSelectPlayer.Gold <= 0)
                 _userSelectPlayer.Gold = 0;
         }
 
-        public void UpdateHP(int amount) 
+        private void UpdateHP(int amount) 
         {
             _userSelectPlayer.HP += amount;
 
@@ -145,6 +134,24 @@ namespace TextRPG
             // max 이상이면 max로
             if(_userSelectPlayer.HP >= _userSelectPlayer.MAXHP)
                 _userSelectPlayer.HP = _userSelectPlayer.MAXHP;
+        }
+
+        public void UpdatePlayerState(int HP = 0, int GOLD = 0, int LEVEL = 0, int ATTACK = 0, int DEFENCE = 0 ) 
+        {
+            // HP 업데이트
+            UpdateHP(HP);
+
+            // 골드 업데이트
+            UpdateGold(GOLD);
+
+            // Level 업데이트
+            _userSelectPlayer.LV += LEVEL;
+
+            // 공격력 증가
+            _userSelectPlayer.attack += ATTACK;
+
+            // 방어력 증가
+            _userSelectPlayer.defence += DEFENCE;
         }
 
     }

@@ -55,6 +55,13 @@ namespace TextRPG
         Necklaces   // 목걸이
     }
 
+    enum DungeonLevel 
+    { 
+        Easy,
+        Normal,
+        Hard
+    }
+
     #endregion
 
     class GameManger : Singleton<GameManger>    
@@ -84,6 +91,8 @@ namespace TextRPG
             gameScene[(int)SceneType.StoreScene]        = StoreManager.Instance;
             gameScene[(int)SceneType.RestScene]         = RestScene.Instance;
             gameScene[(int)SceneType.DungeonScene]      = DungeonScene.Instance;
+
+            nextScene = gameScene[0];
         }
 
 
@@ -116,14 +125,7 @@ namespace TextRPG
         public void ChangeScene(SceneType type) 
         {
             // 지금 씬 = 예전 씬으로
-            if(nextScene != null) 
-            {
-                preScene = nextScene;
-
-                // Lobby->Lobby일 때 exit와 enter은 실행안해도됨
-                if (preScene != nextScene)
-                    preScene.SceneExit();
-            }
+            preScene = nextScene;
 
             // 현재 씬 지정 
             nextScene = gameScene[(int)type];
