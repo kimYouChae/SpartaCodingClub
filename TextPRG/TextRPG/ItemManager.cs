@@ -229,7 +229,7 @@ namespace TextRPG
         }
 
         // 장비 아이템의 장착 타입 변환 
-        public void ChangeStateEquipItem(ItemState preState, ItemState nextState, Item item) 
+        public void ChangeStateEquipItem(ItemState preState, ItemState nextState, Item item ) 
         {
             // Item의 null 오류
             if (item == null)

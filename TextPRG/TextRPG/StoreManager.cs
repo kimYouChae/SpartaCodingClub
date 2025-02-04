@@ -32,7 +32,7 @@ namespace TextRPG
             Console.WriteLine("[보유골드]");
             Console.WriteLine(PlayerManager.Instance.UserSelectPlayer.Gold + "   GOLD");
 
-            Console.WriteLine(" 1. 아이템 구매 \n 2. 상점 아이템 보기 \n  0. 나가기 \n");
+            Console.WriteLine(" 1. 아이템 구매 \n 2. 상점 아이템 보기 \n 3.아이템 판매 \n 0. 나가기 \n");
 
             int input = int.Parse(Console.ReadLine());
 
@@ -49,6 +49,13 @@ namespace TextRPG
                     Console.WriteLine("상점 아이템 목록 입니다.");
                     // 장비 아이템 출력 
                     ItemManager.Instance.PrintEquipItem(_isStore : true);
+                    // 인벤토리 씬으로 돌아가기
+                    GameManger.Instance.ChangeScene(SceneType.StoreScene);
+                    break;
+                case 3:
+                    Console.WriteLine("아이템 판매 목록입니다.");
+                    // 판매로직
+                    SellItem();
                     // 인벤토리 씬으로 돌아가기
                     GameManger.Instance.ChangeScene(SceneType.StoreScene);
                     break;
@@ -99,10 +106,27 @@ namespace TextRPG
             Console.WriteLine("아이템을 구매합니다.!");
             // 돈 차감 
             PlayerManager.Instance.UpdatePlayerState(GOLD: (-1) * selectItem.price);
+            // 아이템 변경 
             ItemManager.Instance.ChangeStateEquipItem( ItemState.UnObtained , ItemState.InInvetory , selectItem);
         }
 
-        
+        private void SellItem() 
+        {
+            // 판매 가능한 아이템 목록 출력 ( 장착한 아이템은 판매 불가능 )
+            ItemManager.Instance.PrintItemByItemState(ItemState.InInvetory);
+
+            Console.WriteLine("판매할 품목을 선택하세요");
+            int input = int.Parse(Console.ReadLine());
+
+            // 아이템 변경 
+            Item selectItem = ItemManager.Instance.GetEquitInDictionray( ItemState.InInvetory , input);
+            ItemManager.Instance.ChangeStateEquipItem(ItemState.InInvetory, ItemState.UnObtained, selectItem);
+
+            // 돈 추가 
+            PlayerManager.Instance.UpdatePlayerState( GOLD : selectItem.price / 2 );
+        }
+
+
 
     }
 }
