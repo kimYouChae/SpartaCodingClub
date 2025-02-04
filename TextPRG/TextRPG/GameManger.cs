@@ -27,7 +27,9 @@ namespace TextRPG
         LobbyScene,
         PlayerScene,
         InventoryScene,
-        StoreScene
+        StoreScene,
+        RestScene,
+        DungeonScene
     }
 
     enum ItemType
@@ -80,6 +82,8 @@ namespace TextRPG
             gameScene[(int)SceneType.PlayerScene]       = PlayerManager.Instance;
             gameScene[(int)SceneType.InventoryScene]    = InventoryManger.Instance;
             gameScene[(int)SceneType.StoreScene]        = StoreManager.Instance;
+            gameScene[(int)SceneType.RestScene]         = RestScene.Instance;
+            gameScene[(int)SceneType.DungeonScene]      = DungeonScene.Instance;
         }
 
 

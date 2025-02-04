@@ -13,7 +13,8 @@ namespace TextRPG
         private string _name;
         private float _attackPower;
         private float _defencPower;
-        private float _HP;
+        private int _HP;
+        private int _MAXHP;
         private int _gold;
         private string _tooltip;
 
@@ -22,8 +23,10 @@ namespace TextRPG
         public string ToolTip => _tooltip;
         public string PlayerName { get { return _name; } set { _name = value; } }
         public int Gold { get => _gold; set { _gold = value; } }
+        public int HP { get => _HP; set { _HP = value; } }
+        public int MAXHP { get => _MAXHP; }
 
-        public Player(int lv, PlayerClass pClass, string name, float attak, float defence, float hp, int gold, string tool)
+        public Player(int lv, PlayerClass pClass, string name, float attak, float defence, int hp, int gold, string tool)
         {
             this._LV = lv;
             this._playerClass = pClass;
@@ -31,6 +34,7 @@ namespace TextRPG
             this._attackPower = attak;
             this._defencPower = defence;
             this._HP = hp;
+            this._MAXHP = 100;          // ##TODO : 임시 max 설정 
             this._gold = gold;
             this._tooltip = tool;
         }

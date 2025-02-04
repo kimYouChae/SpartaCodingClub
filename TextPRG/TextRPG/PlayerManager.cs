@@ -38,7 +38,7 @@ namespace TextRPG
             playerContainer = new Player[playerClassArray.Length];
 
             playerContainer[(int)PlayerClass.Gunsliger] 
-                = new Player(0, PlayerClass.Gunsliger, "", 10, 5, 100, 10 , "건슬링어는 3가지 총을 사용하여 빠르게 움직이며 스타일리쉬한 전투를 펼칩니다.");
+                = new Player(0, PlayerClass.Gunsliger, "", 10, 5, 70, 10000 , "건슬링어는 3가지 총을 사용하여 빠르게 움직이며 스타일리쉬한 전투를 펼칩니다.");
             playerContainer[(int)PlayerClass.Sorceress] 
                 = new Player(0, PlayerClass.Sorceress, "", 10, 5, 100, 100000, "원소를 기본으로 한 강력한 마법을 다루며 캐스팅 마법으로 강력한 피해를 선사합니다.");
             playerContainer[(int)PlayerClass.Blade] 
@@ -111,11 +111,41 @@ namespace TextRPG
             //Console.WriteLine("Player : SceneExit");
         }
 
+        // 구매가능하면 차감, 아니면 false 리턴 
+        public bool HasEnoughMoney(int gold)
+        {
+            // 내 돈 - 아이템 가격이 0이상 -> 구매가능 
+            if (gold <= _userSelectPlayer.Gold)
+                return true;
+            
+            // 구매 불가능 
+            else
+                return false;
+
+        }
+
+        // 골드 사용 
         public void UseGold(int gold) 
         {
             _userSelectPlayer.Gold -= gold;
+
+            // 0이하면 0으로 초기화
+            if (_userSelectPlayer.Gold <= 0)
+                _userSelectPlayer.Gold = 0;
         }
 
+        public void UpdateHP(int amount) 
+        {
+            _userSelectPlayer.HP += amount;
+
+            // 0 이하면 0으로
+            if(_userSelectPlayer.HP <= 0)
+                _userSelectPlayer.HP = 0;
+
+            // max 이상이면 max로
+            if(_userSelectPlayer.HP >= _userSelectPlayer.MAXHP)
+                _userSelectPlayer.HP = _userSelectPlayer.MAXHP;
+        }
 
     }
 }

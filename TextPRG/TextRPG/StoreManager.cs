@@ -89,7 +89,7 @@ namespace TextRPG
                 return;
             }
             // 골드 체크 -> 부족하면 
-            if (! HasEnoughMoney(selectItem)) 
+            if (! PlayerManager.Instance.HasEnoughMoney(selectItem.price)) 
             {
                 Console.WriteLine("골드가 부족합니다!");
                 return;
@@ -97,25 +97,12 @@ namespace TextRPG
 
             // 이미 획득한 아이템도 아님 + 골드 충분
             Console.WriteLine("아이템을 구매합니다.!");
+            // 돈 차감 
+            PlayerManager.Instance.UseGold(selectItem.price);
             ItemManager.Instance.ChangeStateEquipItem( ItemState.UnObtained , ItemState.InInvetory , selectItem);
         }
 
-        private bool HasEnoughMoney(Item item) 
-        {
-            // 내 돈 - 아이템 가격이 0이상 -> 구매가능 
-            if (0 <= PlayerManager.Instance.UserSelectPlayer.Gold - item.price)
-            {
-                // 플레이어 골드 차감 
-                PlayerManager.Instance.UseGold(item.price);
-
-                return true;
-            }
-            
-            // 구매 불가능 
-            else 
-                return false;   
-            
-        }
+        
 
     }
 }
