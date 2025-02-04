@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
+    #region
+    
     enum PlayerClass
     {
         Gunsliger,
@@ -27,6 +29,31 @@ namespace TextRPG
         InventoryScene,
         StoreScene
     }
+
+    enum ItemType
+    {
+        Armor,
+        Weapon,
+        Portion
+    }
+
+    enum ItemState 
+    {
+        UnObtained,     // 얻기전 (상점)
+        InInvetory,     // 얻은후(인벤토리)
+        Equipped        // 장착 (장착)
+    }
+
+    enum ItemSlot 
+    {
+        Armor,      // 상의
+        Bottoms,    // 하의
+        Weapon,     // 무기
+        Ring,       // 반지
+        Necklaces   // 목걸이
+    }
+
+    #endregion
 
     class GameManger : Singleton<GameManger>    
     {
