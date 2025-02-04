@@ -98,7 +98,7 @@ namespace TextRPG
             // 이미 획득한 아이템도 아님 + 골드 충분
             Console.WriteLine("아이템을 구매합니다.!");
             // 돈 차감 
-            PlayerManager.Instance.UpdatePlayerState(GOLD: selectItem.price);
+            PlayerManager.Instance.UpdatePlayerState(GOLD: (-1) * selectItem.price);
             ItemManager.Instance.ChangeStateEquipItem( ItemState.UnObtained , ItemState.InInvetory , selectItem);
         }
 

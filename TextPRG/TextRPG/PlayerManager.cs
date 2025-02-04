@@ -148,11 +148,19 @@ namespace TextRPG
             _userSelectPlayer.LV += LEVEL;
 
             // 공격력 증가
-            _userSelectPlayer.attack += ATTACK;
+            _userSelectPlayer.AddAttack += ATTACK;
 
             // 방어력 증가
-            _userSelectPlayer.defence += DEFENCE;
+            _userSelectPlayer.AddDefence += DEFENCE;
         }
 
+        public void UpdateAddState(AddState type, int amount) 
+        {
+            if (type == AddState.Attack)
+                UpdatePlayerState(ATTACK : amount);
+            else
+                UpdatePlayerState(DEFENCE : amount);
+
+        }
     }
 }

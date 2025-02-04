@@ -241,7 +241,12 @@ namespace TextRPG
             // nextState가 Equipped일때 (착용해야할 장비일때)
             // 1. 착용해야할 장비일때
             if (nextState == ItemState.Equipped)
+            { 
                 WearEquipItem(item);
+
+                // 아이템 추가 스탯 설정
+                PlayerManager.Instance.UpdateAddState(((EquitItem)item).addState, ((EquitItem)item).addStateAmount);
+            }
 
             // 2. 그냥 인벤토리에 획득만 하면 될 때
             // (착용해야할 장비도 포함됨)
@@ -254,8 +259,9 @@ namespace TextRPG
             // 아이템의 상태 바꿔주기
             item.state = nextState;
 
-
+          
         }
+
 
     }
 }
