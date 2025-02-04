@@ -17,6 +17,7 @@ namespace TextRPG
 
         public void SceneEntry()
         {
+            Console.Clear();
             stringBuilder.Clear();
 
             stringBuilder.Append('\n');

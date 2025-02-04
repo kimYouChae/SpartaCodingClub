@@ -79,7 +79,7 @@ namespace TextRPG
             gameScene[(int)SceneType.LobbyScene]        = LobbyScene.Instance;
             gameScene[(int)SceneType.PlayerScene]       = PlayerManager.Instance;
             gameScene[(int)SceneType.InventoryScene]    = InventoryManger.Instance;
-            gameScene[(int)SceneType.StoreScene]        = InventoryManger.Instance;
+            gameScene[(int)SceneType.StoreScene]        = StoreManager.Instance;
         }
 
 
