@@ -14,50 +14,58 @@ namespace TextRPG
 
         // 장비 착용 부위별 item (상의, 하의, 무기, 반지, 목걸이)
         // item은 null 허용!
-        private Dictionary<ItemSlot , Item?> DICT_slotToItem;
+        private Dictionary<ItemSlot, Item?> DICT_slotToItem;
 
         private List<EquitItem> equipItem;
         private List<PortionItem> portionItem;
 
-        public int StateToListCount(ItemState state) 
+        public Item GetEquipByIndex(int idx) 
         {
-            try
+            if (idx < 0 || idx >= equipItem.Count)
+                return null;
+
+            return equipItem[idx];
+        }
+        public Item GetEquitInDictionray(ItemState state, int idx ) 
+        {
+            try 
             {
-                return DICT_stateToItem[state].Count;
+                return DICT_stateToItem[state][idx];
             }
-            catch 
+            catch (Exception e) 
             {
-                Console.WriteLine("딕셔너리에 해당하는 list가 없습니다.");
-                return -1;
+                Console.WriteLine(e.ToString());
+                return null;
             }
         }
 
-        public ItemManager() 
+        public int EquipListCount => equipItem.Count;
+
+        public ItemManager()
         {
             InitContainer();
         }
 
-        private void InitContainer() 
+        private void InitContainer()
         {
             // 1. 딕셔너리 
             // 1-1 .장비 타입별 item
             DICT_stateToItem = new Dictionary<ItemState, List<Item>>();
             Array stateArray = Enum.GetValues(typeof(ItemState));
-            foreach (ItemState temp in stateArray) 
+            foreach (ItemState temp in stateArray)
             {
-                if( !DICT_stateToItem.ContainsKey(temp))
-                    DICT_stateToItem[temp] = new List<Item>();   
+                if (!DICT_stateToItem.ContainsKey(temp))
+                    DICT_stateToItem[temp] = new List<Item>();
             }
 
             // 1-2. 장비 부위별 item
-            DICT_slotToItem = new Dictionary<ItemSlot , Item?>();
+            DICT_slotToItem = new Dictionary<ItemSlot, Item?>();
             Array slotArray = Enum.GetValues(typeof(ItemSlot));
             foreach (ItemSlot temp in slotArray)
             {
                 if (!DICT_slotToItem.ContainsKey(temp))
                     DICT_slotToItem[temp] = null;
             }
-
 
             // 2. 장비 아이템
             equipItem = new List<EquitItem>()
@@ -67,7 +75,7 @@ namespace TextRPG
                 new EquitItem(name : "수련자 갑옷" ,  itemType : ItemType.Armor ,tooltip : "수련에 도움을 주는 갑옷입니다." ,
                     price : 1000 , stateType : ItemState.UnObtained , add : 5 , qulity : 70 , slot : ItemSlot.Armor , addType : AddState.Defence) ,
                 new EquitItem(name : "무쇠갑옷" ,  itemType : ItemType.Armor ,tooltip : "무쇠로 만들어져 튼튼한 갑옷입니다." ,
-                    price : 1500 , stateType : ItemState.UnObtained , add : 9 , qulity : 80 , slot : ItemSlot.Armor , addType : AddState.Defence) , 
+                    price : 1500 , stateType : ItemState.UnObtained , add : 9 , qulity : 80 , slot : ItemSlot.Armor , addType : AddState.Defence) ,
                 new EquitItem(name : "스파르타의 갑옷" ,  itemType : ItemType.Armor ,tooltip : "스파르타의 전사들이 사용했다는 전설의 갑옷입니다." ,
                         price : 3500 , stateType : ItemState.UnObtained , add : 15 , qulity : 90 , slot : ItemSlot.Armor , addType : AddState.Defence) ,
                 
@@ -108,121 +116,145 @@ namespace TextRPG
                 new PortionItem( name : "정령의 회복약" ,  itemType : ItemType.Portion , tooltip : "체력을 70 회복해줍니다.." ,
                     price : 170 , stateType : ItemState.UnObtained , acquireCount : 0 , recoverAmount : 70),
             };
+
+            // 4. 장비아이템은 딕셔너리에 넣어놓기 ( ##TODO 물약은 나중에 추가하기)
+            for (int i = 0; i < equipItem.Count; i++)
+            {
+                // 초기에는 UnObtained로 들어가있음 
+                DICT_stateToItem[equipItem[i].state].Add(equipItem[i]);
+            }
         }
 
-        // 획득 타입별 출력 
-        public void PrintItemByItemState( ItemState state , bool isEquitManage = false ) // flag : 장착관리인지 ( 앞에 [E]붙일지 말지 )
+
+        // 획득 타입별 출력 ( Dictionary 출력 )
+        public void PrintItemByItemState(ItemState itemState , bool _isEquitManage = false)
         {
-            if ( ! DICT_stateToItem.ContainsKey(state)) 
+            // isEquitManage : 장착관리인지 ( 앞에 [E]붙일지 말지 )
+            // isStore : 상점인지 ( 맨 뒤에 골드 or 구매완료 붙일지 말지)
+
+            if (!DICT_stateToItem.ContainsKey(itemState))
             {
-                Console.WriteLine($"{state}에 해당하는 타입의 아이템이 딕셔너리에 없습니다");
+                Console.WriteLine($"{itemState}에 해당하는 타입의 아이템이 딕셔너리에 없습니다");
                 return;
             }
 
             // state에 해당하는 list
-            List<Item> list = DICT_stateToItem[state];
+            List<Item> list = DICT_stateToItem[itemState];
             if (list.Count <= 0)
             {
-                Console.WriteLine($"{state}에 해당하는 인벤토리는 비어있습니다! ");
+                Console.WriteLine($"{itemState}에 해당하는 인벤토리는 비어있습니다! ");
                 return;
             }
 
             // 출력 
             StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < list.Count; i++) 
+            for (int i = 0; i < list.Count; i++)
             {
-                // ##TODO : StringBuilder 관련 모듈 만들기! 
+                Item currItem = list[i];
+
                 stringBuilder.Clear();
+                StringBuilderAppender(stringBuilder , i , currItem , isEquitManage : _isEquitManage);
 
-                stringBuilder.Append("-" + i.ToString());
-                // 장착관리중이면 [E] 같이 출력 
-                if (isEquitManage)
-                    stringBuilder.Append("[ E ]");
-
-                stringBuilder.Append("|" + list[i].name);
-
-                // item이 equit이면=> 방어력 + n
-                // protion이면=> 타입 "Portion"출력
-
-                if (list[i] is EquitItem)
-                    stringBuilder.Append("|" + ((EquitItem)list[i]).addState + " + " +((EquitItem)list[i]).addStateAmount);
-                // EquitItem으로 형변환을 먼저 해준 후 프로퍼티에 접근해야함! 
-                else if (list[i] is PortionItem)
-                    stringBuilder.Append("| 갯수" +((PortionItem)list[i]).acquireCount);
-
-                stringBuilder.Append("|" + list[i].toolTip +'\n');
+                Console.WriteLine(stringBuilder);
             }
         }
 
-        private Item StateToItem(ItemState state , int idx) 
+        // 스트링 빌더에 Item 붙이기
+        private void StringBuilderAppender(StringBuilder stringBuilder, int idx , Item currItem , bool isEquitManage = false, bool isStore = false ) 
         {
-            try
+            stringBuilder.Append("-" + idx.ToString());
+
+            if (isEquitManage)
+                stringBuilder.Append("[ E ]");
+
+            stringBuilder.Append("|" + currItem.name);
+
+            // item이 equit이면=> 방어력 + n
+            // protion이면=> 타입 "Portion"출력
+            if (currItem is EquitItem)
+                stringBuilder.Append("|" + ((EquitItem)currItem).addState + " + " + ((EquitItem)currItem).addStateAmount);
+            // EquitItem으로 형변환을 먼저 해준 후 프로퍼티에 접근해야함! 
+            else if (currItem is PortionItem)
+                stringBuilder.Append("| 갯수" + ((PortionItem)currItem).acquireCount);
+
+            stringBuilder.Append("|" + currItem.toolTip);
+
+            if (isStore)
+                stringBuilder.Append(PrintItemPrice(currItem));
+        }
+
+        // 장비 출력 
+        public void PrintEquipItem( bool _isStore = false) 
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            // 착용관리일때 "[E]"붙이기
+            // 상점일때 구매했으면 "구매완료" 아니면 {골드}
+            for (int i = 0; i < equipItem.Count; i++) 
             {
-                return DICT_stateToItem[state][idx];
+                stringBuilder.Clear();
+                StringBuilderAppender( stringBuilder , i , equipItem[i]  , isStore : _isStore);
+                Console.WriteLine(stringBuilder);
             }
-            catch 
-            {
-                return null;
-            }
+        }
+
+        private string PrintItemPrice(Item item) 
+        {
+            // 획득했으면 
+            if (item.state != ItemState.UnObtained)
+                return "{ 구매완료 }";
+            else
+                return "{ " + item.price.ToString() + " } ";
         }
 
         // 착용 관리 딕셔너리의 부위에 해당하는 item 검사
-        private bool isEquitSlotIsEmpty(Item item) 
+        private void WearEquipItem(Item item) 
         {
-            // 착용가능한 장비이면
-            if (item is EquitItem)
-            {
-                // null 이면 true(착용가능), 아니면 false
-                return DICT_slotToItem[((EquitItem)item).slot] == null ? true : false;
-            }
-            else 
-            {
-                Console.WriteLine("왜 착용 불가능한 장비가 들어왔지 ?");
-                return false;
-            }
-        }
+            // 장비 착용 관리
+            // 1. 착용 딕셔너리에 있는지 검사해야함 
+            // 1-2. 없으면 -> 착용 (딕셔너리 추가)
 
-        // 아이템의 장착 타입 변환 
-        public void ChangeItenEquitType(ItemState preState, ItemState nextState, int idx) 
-        {
-            Item item = StateToItem( preState , idx );
+            ItemSlot mySlot = ((EquitItem)item).slot;
 
-            // 예외 : 인덱스 오류
-            if (idx < 0 || idx >= DICT_stateToItem[preState].Count)
+            if (DICT_slotToItem[mySlot] == null)
             {
-                Console.WriteLine("인벤토리 | 장착 | 잘못된 인덱스 접근 입니다.");
+                DICT_slotToItem[mySlot] = item;
                 return;
             }
+
+            // 1-3. null이 아니면 (착용하고 있는게 있으면 )
+            // -> 원래 착용하고 있던 장비를 상태변화 (Equipped -> inventory)
+            Item oriItem = DICT_slotToItem[mySlot];
+
+            ChangeStateEquipItem(ItemState.Equipped , ItemState.InInvetory, oriItem);
+        }
+
+        // 장비 아이템의 장착 타입 변환 
+        public void ChangeStateEquipItem(ItemState preState, ItemState nextState, Item item) 
+        {
             // Item의 null 오류
-            if (item == null) 
+            if (item == null)
             {
                 Console.WriteLine("ItemManager | 아이템 타입 변환 null 오류 ");
                 return;
             }
-            // 딕셔너리[state]의 리스트에서 item 검사
-            if (!DICT_stateToItem.ContainsKey(preState))
-            {
-                Console.WriteLine($"{preState}에 해당하는 dictionary 오류 ");
-                return;
-            }
-            // 만약 아이템 타입이 Armor + 착용 딕셔너리에 이미 착용하고있으면 ?
-            if (item.type == ItemType.Armor && !isEquitSlotIsEmpty(item))
-            {
-                Console.WriteLine($"{item.name} 은/는 이미 착용하고 있습니다");
-                return;
-            }
-            // 만약 아이템이 물약이면 ?
-            if (item.type == ItemType.Portion) 
-            {
-                Console.WriteLine($"{item.name} 물약은 착용할 수 없습니다");
-                return;
-            }
 
+            // nextState가 Equipped일때 (착용해야할 장비일때)
+            // 1. 착용해야할 장비일때
+            if (nextState == ItemState.Equipped)
+                WearEquipItem(item);
+
+            // 2. 그냥 인벤토리에 획득만 하면 될 때
+            // (착용해야할 장비도 포함됨)
             // 리스트에서 지우기 
             DICT_stateToItem[preState].Remove(item);
 
             // 리스트에 추가하기
             DICT_stateToItem[nextState].Add(item);
+
+            // 아이템의 상태 바꿔주기
+            item.state = nextState;
+
+
         }
 
     }

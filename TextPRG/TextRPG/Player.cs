@@ -14,15 +14,16 @@ namespace TextRPG
         private float _attackPower;
         private float _defencPower;
         private float _HP;
-        private float _gold;
+        private int _gold;
         private string _tooltip;
 
         // 프로퍼티
         public PlayerClass Playerclass => _playerClass;
         public string ToolTip => _tooltip;
         public string PlayerName { get { return _name; } set { _name = value; } }
+        public int Gold { get => _gold; set { _gold = value; } }
 
-        public Player(int lv, PlayerClass pClass, string name, float attak, float defence, float hp, float gold, string tool)
+        public Player(int lv, PlayerClass pClass, string name, float attak, float defence, float hp, int gold, string tool)
         {
             this._LV = lv;
             this._playerClass = pClass;

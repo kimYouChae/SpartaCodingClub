@@ -16,7 +16,7 @@ namespace TextRPG
 
         // 프로퍼티
         public string name => _name;
-        public ItemState state => _state;
+        public ItemState state { get => _state; set { _state = value; } }
         public string toolTip => _toolTip;
         public int price => _price;
         public ItemType type => _type;

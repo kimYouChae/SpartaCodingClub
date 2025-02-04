@@ -30,8 +30,6 @@ namespace TextRPG
             AddStateInit();
         }
 
-
-
         private void ClassInit() 
         {
             // player 데이터 저장 
@@ -40,13 +38,13 @@ namespace TextRPG
             playerContainer = new Player[playerClassArray.Length];
 
             playerContainer[(int)PlayerClass.Gunsliger] 
-                = new Player(0, PlayerClass.Gunsliger, "", 10, 5, 100, 1500 , "건슬링어는 3가지 총을 사용하여 빠르게 움직이며 스타일리쉬한 전투를 펼칩니다.");
+                = new Player(0, PlayerClass.Gunsliger, "", 10, 5, 100, 10 , "건슬링어는 3가지 총을 사용하여 빠르게 움직이며 스타일리쉬한 전투를 펼칩니다.");
             playerContainer[(int)PlayerClass.Sorceress] 
-                = new Player(0, PlayerClass.Sorceress, "", 10, 5, 100, 1500, "원소를 기본으로 한 강력한 마법을 다루며 캐스팅 마법으로 강력한 피해를 선사합니다.");
+                = new Player(0, PlayerClass.Sorceress, "", 10, 5, 100, 100000, "원소를 기본으로 한 강력한 마법을 다루며 캐스팅 마법으로 강력한 피해를 선사합니다.");
             playerContainer[(int)PlayerClass.Blade] 
-                = new Player(0, PlayerClass.Blade, "", 10, 5, 100, 1500, "쌍검과 장검을 사용하는 암살자이며 빠르고 절도있게 적들을 공격합니다.");
+                = new Player(0, PlayerClass.Blade, "", 10, 5, 100, 100000, "쌍검과 장검을 사용하는 암살자이며 빠르고 절도있게 적들을 공격합니다.");
             playerContainer[(int)PlayerClass.Aeromancer] 
-                = new Player(0, PlayerClass.Aeromancer, "", 10, 5, 100, 1500, "신비로운 환영의 힘으로 기상을 다루고 우산으로 적을 제압합니다.");
+                = new Player(0, PlayerClass.Aeromancer, "", 10, 5, 100, 100000, "신비로운 환영의 힘으로 기상을 다루고 우산으로 적을 제압합니다.");
         }
 
         private void AddStateInit() 
@@ -90,7 +88,7 @@ namespace TextRPG
 
         public void SceneEntry()
         {
-            Console.WriteLine();
+            Console.Clear();
             //Console.WriteLine("Player : SceneEntry");
 
             Console.WriteLine("===캐릭터 선택창 입니다===");
@@ -111,6 +109,11 @@ namespace TextRPG
             Console.WriteLine("루테란 성으로 돌아갑니다! ");
 
             //Console.WriteLine("Player : SceneExit");
+        }
+
+        public void UseGold(int gold) 
+        {
+            _userSelectPlayer.Gold -= gold;
         }
 
 

@@ -16,7 +16,8 @@ namespace TextRPG
 
         public void SceneEntry()
         {
-            Console.WriteLine("인벤토리 | 보유중인 아이템을 확인할 수 있습니다. \n [아이템 목록]");
+            Console.Clear();
+            Console.WriteLine("인벤토리 | 보유중인 아이템을 확인할 수 있습니다. \n [보유중인 아이템 목록] \n ");
 
             ItemManager.Instance.PrintItemByItemState( ItemState.InInvetory );
         }
@@ -69,26 +70,25 @@ namespace TextRPG
 
         private void EquitOnOFf() 
         {
-            Console.WriteLine("**미장착 아이템 **");
+            // Console.WriteLine("**미장착 아이템 **");
             // 아직 미장착한 아이템 출력 ( 인벤토리에 있는 )          
-            ItemManager.Instance.PrintItemByItemState(ItemState.InInvetory , true);
+            // ItemManager.Instance.PrintItemByItemState(ItemState.InInvetory);
 
-            Console.WriteLine("**장착 아이템 **");
+            // Console.WriteLine("**장착 아이템 **");
             // 장착한 아이템 출력 
-            ItemManager.Instance.PrintItemByItemState(ItemState.Equipped);
+            // ItemManager.Instance.PrintItemByItemState(ItemState.Equipped);
 
-            // 비어있을 땐 장착을 못함
-            if (ItemManager.Instance.StateToListCount(ItemState.InInvetory) == 0)
-            {
-                Console.WriteLine("인벤토리에 아이템이 없습니다. ");
-                return;
-            }
+            // 획득 아이템 출력 ( InInvetory내의 아이템 )
+            ItemManager.Instance.PrintItemByItemState(ItemState.InInvetory , _isEquitManage : true);
 
+            // 입력
             Console.WriteLine("장착하실 아이템을 고르세요");
             int input = int.Parse(Console.ReadLine());
 
-            // 아이템 획득 타입 변환 
-            ItemManager.Instance.ChangeItenEquitType( ItemState.InInvetory, ItemState.Equipped , input);
+            // 아이템 획득 타입 변환 ( 인벤토리 -> 착용 )
+            Item selectItem = ItemManager.Instance.GetEquitInDictionray(ItemState.InInvetory ,input);
+
+            ItemManager.Instance.ChangeStateEquipItem(ItemState.InInvetory, ItemState.Equipped, selectItem);
         }
 
     }
