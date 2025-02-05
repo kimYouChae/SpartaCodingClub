@@ -196,6 +196,7 @@ namespace TextRPG
                     // 아이템 세팅 
                     ItemManager.Instance.SettingSavedEquipItem(data._equipItem);
                 }
+
                 catch (Exception e) { Console.WriteLine(e); }
             }
             else 

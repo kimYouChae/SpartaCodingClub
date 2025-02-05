@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,11 +49,17 @@ namespace TextRPG
 
             for (int i = 0; i < EQUIPT.Count; i++) 
             {
-                // 현재 equipt는 Euipt타입
-                // 리스트는 Item 타입
                 _equipItem.Add( EQUIPT[i] );
             }
+        }
 
+        public void Print() 
+        {
+            Console.WriteLine("추가스탯 출력 ");
+            foreach (var temp in _equipItem) 
+            {
+                Console.WriteLine(temp.addState + " / " + temp.addStateAmount );
+            }
         }
     }
 }

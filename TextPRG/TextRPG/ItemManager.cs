@@ -86,7 +86,7 @@ namespace TextRPG
 
             // 4. 장비아이템은 딕셔너리에 넣어놓기 
             // 캐릭터를 만든적 없을때만 -> 
-            if (!GameManger.Instance.isCharacterCreated)
+            if (! GameManger.Instance.isCharacterCreated)
             {
                 // 2. 장비 아이템
                 equipItem = new List<EquitItem>()
@@ -301,7 +301,7 @@ namespace TextRPG
             {
                 EquitItem my = list[i];
 
-                // 1. 장비리스트에 추가 (초기화는 생성자에서)
+                // 1. 장비리스트에 추가
                 equipItem.Add( my );
 
                 // 3. 착용한흔적이있으면 
