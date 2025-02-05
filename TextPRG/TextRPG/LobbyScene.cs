@@ -40,8 +40,16 @@ namespace TextRPG
 
             Console.WriteLine(stringBuilder.ToString());
 
-            // 입력받기 
-            int input = int.Parse(Console.ReadLine());
+            int input;
+            while (true)
+            {
+                Console.Write("숫자를 입력하세요 >>> ");
+                if (int.TryParse(Console.ReadLine(), out input))
+                {
+                    break;  // 성공적으로 숫자를 입력받으면 반복문 종료
+                }
+                Console.WriteLine("올바른 숫자를 입력해주세요.");
+            }
 
             // input에 맞게 변경 
             ChangeScene(input);

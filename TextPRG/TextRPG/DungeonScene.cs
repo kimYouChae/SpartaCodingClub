@@ -42,7 +42,16 @@ namespace TextRPG
 
         public void SceneMainFlow()
         {
-            int input = int.Parse(Console.ReadLine());
+            int input;
+            while (true)
+            {
+                Console.Write("숫자를 입력하세요 >>> ");
+                if (int.TryParse(Console.ReadLine(), out input))
+                {
+                    break;  // 성공적으로 숫자를 입력받으면 반복문 종료
+                }
+                Console.WriteLine("올바른 숫자를 입력해주세요.");
+            }
 
             switch (input) 
             {

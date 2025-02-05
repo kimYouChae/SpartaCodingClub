@@ -29,7 +29,16 @@ namespace TextRPG
             Console.WriteLine($"보유골드 {PlayerManager.Instance.UserSelectPlayer.Gold} ");
             Console.WriteLine("1. 휴식하기 \n 0. 나가기");
 
-            int input = int.Parse(Console.ReadLine());
+            int input;
+            while (true)
+            {
+                Console.Write("숫자를 입력하세요 >>> ");
+                if (int.TryParse(Console.ReadLine(), out input))
+                {
+                    break;  // 성공적으로 숫자를 입력받으면 반복문 종료
+                }
+                Console.WriteLine("올바른 숫자를 입력해주세요.");
+            }
 
             switch (input)
             {

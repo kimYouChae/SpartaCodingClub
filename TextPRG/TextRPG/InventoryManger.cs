@@ -26,7 +26,16 @@ namespace TextRPG
         {
             Console.WriteLine("1. 장착관리 2. 보유중인 아이템 보기 3. 착용중인 아이템 보기 \n 0. 나가기");
 
-            int input = int.Parse(Console.ReadLine());
+            int input;
+            while (true)
+            {
+                Console.Write("숫자를 입력하세요 >>> ");
+                if (int.TryParse(Console.ReadLine(), out input))
+                {
+                    break;  // 성공적으로 숫자를 입력받으면 반복문 종료
+                }
+                Console.WriteLine("올바른 숫자를 입력해주세요.");
+            }
 
             switch (input) 
             {
@@ -78,7 +87,17 @@ namespace TextRPG
 
             // 입력
             Console.WriteLine("장착하실 아이템을 고르세요");
-            int input = int.Parse(Console.ReadLine());
+
+            int input;
+            while (true)
+            {
+                Console.Write("숫자를 입력하세요 >>> ");
+                if (int.TryParse(Console.ReadLine(), out input))
+                {
+                    break;  // 성공적으로 숫자를 입력받으면 반복문 종료
+                }
+                Console.WriteLine("올바른 숫자를 입력해주세요.");
+            }
 
             // 아이템 획득 타입 변환 ( 인벤토리 -> 착용 )
             Item selectItem = ItemManager.Instance.GetEquitInDictionray(ItemState.InInvetory ,input);
