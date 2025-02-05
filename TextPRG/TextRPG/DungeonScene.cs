@@ -77,11 +77,14 @@ namespace TextRPG
         {
             Dungeon dungeon = dungeonLevelList[(int)level];
 
-            Console.WriteLine( "플레이어 디펜스  : " + PlayerManager.Instance.UserSelectPlayer.DefencePower);
+            int playerdefence = PlayerManager.Instance.UserSelectPlayer.DefencePower +
+                PlayerManager.Instance.UserSelectPlayer.AddDefence;
+
+            Console.WriteLine( "플레이어 디펜스  : " + playerdefence);
             Console.WriteLine( "던전 디펜스  : " + dungeon.recommendDefence);
-            
+
             // 플레이어 방어력이 권장보다 낮으면 
-            if (dungeon.recommendDefence > PlayerManager.Instance.UserSelectPlayer.DefencePower)
+            if (dungeon.recommendDefence > playerdefence)
             {
                 FailDungeon();
                 Console.WriteLine("던전실패!! 다음에 다시 도전해보세요! ");
@@ -91,7 +94,7 @@ namespace TextRPG
                 Console.WriteLine($"축하합니다!! \n { dungeon.name } 을 클리어 했습니다!!");
                 Console.WriteLine("[탐험 결과]");
 
-                int reduce = dungeon.RedeuceHp( PlayerManager.Instance.UserSelectPlayer.DefencePower) * (-1);
+                int reduce = dungeon.RedeuceHp( playerdefence ) * (-1);
                 int reward = dungeon.clearGold + dungeon.AddGold( PlayerManager.Instance.UserSelectPlayer.AttackPower );
 
                 Console.WriteLine($"체력 : {PlayerManager.Instance.UserSelectPlayer.HP} -> {PlayerManager.Instance.UserSelectPlayer.HP + reduce}");

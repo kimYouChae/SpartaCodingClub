@@ -36,6 +36,7 @@ namespace TextRPG
             stringBuilder.Append("[2] 상점 \n");
             stringBuilder.Append("[3] 던전 입장 \n");
             stringBuilder.Append("[4] 휴식 \n");
+            stringBuilder.Append("\n [5] 저장 \n");
 
             Console.WriteLine(stringBuilder.ToString());
 
@@ -71,6 +72,10 @@ namespace TextRPG
                 case 4:
                     // 휴식
                     GameManger.Instance.ChangeScene(SceneType.RestScene);
+                    break;
+                case 5:
+                    // 저장 
+                    GameManger.Instance.SaveData();
                     break;
                 default:
                     Console.WriteLine("잘못된 접근입니다. 다시 로비로 돌아갑니다");

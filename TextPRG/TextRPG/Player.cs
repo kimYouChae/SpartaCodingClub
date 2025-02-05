@@ -24,16 +24,16 @@ namespace TextRPG
 
         // 프로퍼티
         public int LV { get => _level; set { _level = value; } }
-        public PlayerClass Playerclass => _playerClass;
-        public string ToolTip => _tooltip;
-        public string PlayerName { get { return _name; } set { _name = value; } }
+        public PlayerClass Playerclass { get => _playerClass; set { _playerClass = value; } }
+        public string ToolTip { get => _tooltip; set { _tooltip = value; } }
+        public string PlayerName { get  => _name; set { _name = value; } }
         public int Gold { get => _gold; set { _gold = value; } }
         public int HP { get => _HP; set { _HP = value; } }
-        public int MAXHP { get => _MAXHP; }
+        public int MAXHP { get => _MAXHP;  set { _MAXHP = value;} }
 
         // defence - attack
-        public int AttackPower { get => _attackPower; }
-        public int DefencePower { get => _defencPower; }
+        public int AttackPower { get => _attackPower; set { _attackPower = value; } }
+        public int DefencePower { get => _defencPower; set { _defencPower = value; } }
 
         // 추가스탯 프로퍼티
         public int AddDefence { get => _addDefenc; set { _addDefenc = value; } }
