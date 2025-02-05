@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "FyEwQRiZXdc6vcgvJF2OJJ5YzPc5BHkYIwX3ICvC2mHUoXZ+/FhtJDodbuwh/s3BO63FEzvzSMla0b3UW+BHzw==",
+  "dgSpecHash": "anomt+MI+IJDKgIAG9biM2d/73QIXHbtIbAgkSp9bkGDzQQcFBNd3mkX35RypCPcHuY0x9Ixge2+WGL2YlsF5Q==",
   "success": true,
   "projectFilePath": "D:\\SpartaCodingClub\\TextPRG\\TextRPG\\TextRPG.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\kjhst\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

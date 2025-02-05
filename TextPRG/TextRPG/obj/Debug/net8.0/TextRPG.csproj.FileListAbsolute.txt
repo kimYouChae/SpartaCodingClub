@@ -13,3 +13,6 @@ D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\refint\TextRPG.dll
 D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.pdb
 D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.genruntimeconfig.cache
 D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\ref\TextRPG.dll
+D:\SpartaCodingClub\TextPRG\TextRPG\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.csproj.AssemblyReference.cache
+D:\SpartaCodingClub\TextPRG\TextRPG\obj\Debug\net8.0\TextRPG.csproj.CopyComplete

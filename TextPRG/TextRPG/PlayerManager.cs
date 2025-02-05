@@ -50,6 +50,7 @@ namespace TextRPG
             _userSelectPlayer.Print();
         }
 
+        // GameManager -> 저장파일이 없을 때 실행 
         public void SelectPlayer() 
         {
             for(int i = 0; i < playerClassArray.Length; i++)
@@ -75,6 +76,30 @@ namespace TextRPG
             Console.WriteLine($" 모험가님은 {_userSelectPlayer.Playerclass}를 선택했습니다 ! ");
         }
 
+        // Gamemanager -> 저장파일이 있을 때 실행
+        public void LoadPlayerData(PlayerSaveData savePlayer) 
+        {
+            // 해당 직업 class에 해당하는 Player을 user Player로 설정 후 
+            Player my = playerContainer[ (int)(savePlayer._playerClass) ];
+
+            // saveplayer에 있는 값 넣기
+            my.LV = savePlayer._level;
+            my.Playerclass = savePlayer._playerClass;
+            my.PlayerName = savePlayer._name;
+            my.AttackPower = savePlayer._attackPower;
+            my.DefencePower = savePlayer._defencPower;
+            my.HP = savePlayer._HP;
+            my.MAXHP = savePlayer._MAXHP;
+            my.Gold = savePlayer._gold;
+            my.ToolTip = savePlayer._tooltip;
+
+            my.AddAttack = savePlayer._addAttack;
+            my.AddDefence = savePlayer._addDefenc;
+
+            // user player로 할당
+            _userSelectPlayer = my;
+        }
+
         public void SceneEntry()
         {
             Console.Clear();
@@ -91,13 +116,6 @@ namespace TextRPG
 
             // Lobby로 돌아가기
             GameManger.Instance.ChangeScene(SceneType.LobbyScene);
-        }
-
-        public void SceneExit()
-        {
-            Console.WriteLine("루테란 성으로 돌아갑니다! ");
-
-            //Console.WriteLine("Player : SceneExit");
         }
 
         // 구매가능하면 차감, 아니면 false 리턴 
@@ -123,6 +141,7 @@ namespace TextRPG
                 _userSelectPlayer.Gold = 0;
         }
 
+        // hp 업데이트 
         private void UpdateHP(int amount) 
         {
             _userSelectPlayer.HP += amount;
@@ -136,6 +155,7 @@ namespace TextRPG
                 _userSelectPlayer.HP = _userSelectPlayer.MAXHP;
         }
 
+        // 다른스크립트에서 player 업데이트 
         public void UpdatePlayerState(int HP = 0, int GOLD = 0, int LEVEL = 0, int ATTACK = 0, int DEFENCE = 0 ) 
         {
             // HP 업데이트
@@ -154,6 +174,7 @@ namespace TextRPG
             _userSelectPlayer.AddDefence += DEFENCE;
         }
 
+        // 추가스탯 업데이트
         public void UpdateAddState(AddState type, int amount) 
         {
             if (type == AddState.Attack)
